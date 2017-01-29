@@ -12,20 +12,19 @@ public class BaseballGame implements Game{
 	
 	public BaseballGame(){}
 	
-	/*
-	 * Constructor injection: using constructor to inject dependencies.
-	 * @Qualifier tells spring to select a bean with the corresponding id.
-	 */
-	@Autowired
-	public BaseballGame(@Qualifier("cubs")   Team homeTeam, 
-						@Qualifier("redSox") Team awayTeam){
+
+	public BaseballGame(  Team homeTeam,  Team awayTeam){
 		
 		if(homeTeam == awayTeam) System.out.println("home and away are the same object on the heap");
 		
 		this.homeTeam = homeTeam;
 		this.awayTeam = awayTeam;
 	}
+	
+	
 
+	@Autowired //Without qualifier Spring cannot decide between two Teams
+	@Qualifier("redSox")
 	public void setHomeTeam(Team team) {
 		homeTeam = team;
 		
@@ -35,7 +34,9 @@ public class BaseballGame implements Game{
 		// TODO Auto-generated method stub
 		return homeTeam;
 	}
-
+	
+	@Autowired
+	@Qualifier("cubs")
 	public void setAwayTeam(Team team) {
 		awayTeam=team;
 	}
